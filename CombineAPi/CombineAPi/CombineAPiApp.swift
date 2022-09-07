@@ -1,6 +1,6 @@
 //
-//  CombineAFApp.swift
-//  CombineAF
+//  CombineAPiApp.swift
+//  CombineAPi
 //
 //  Created by 강민규 on 2022/09/07.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct CombineAFApp: App {
+struct CombineAPiApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
