@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = ViewModel()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Button {
+            viewModel.getData(cityName: "Busan")
+        } label: {
+            Text("Click ME")
+        }
     }
 }
 
