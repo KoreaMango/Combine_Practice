@@ -11,7 +11,6 @@ import Combine
 final class ViewModel : ObservableObject {
     @Published var datas : [Datas] = []
     
-    private lazy var network = Network()
     private var cancellable :AnyCancellable?
     
     
