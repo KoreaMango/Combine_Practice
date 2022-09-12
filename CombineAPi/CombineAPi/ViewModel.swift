@@ -8,18 +8,28 @@
 import Foundation
 import Combine
 
-class ViewModel : ObservableObject {
-    
-    private var task: AnyCancellable?
-    
+final class ViewModel : ObservableObject {
     @Published var datas : [Datas] = []
     
-//    func fetchDatas() {
-//        task = URLSession.shared.dataTaskPublisher(for: <#T##URL#>)
-//    }
+    private lazy var network = Network()
+    private var cancellable :AnyCancellable?
     
-    func getData(cityName : String) {
-        let url = Parsing.shared.parsingURL(cityName: cityName)
-        print(url)
-     }
+    
+    func getData(cityName : String ) {
+        let url = Parsing.shared.parsingURL(cityName: cityName )
+        
+        cancellable = URLSession.shared
+                .dataTaskPublisher(for: url)
+                .tryMap() { element -> Data in
+                    guard let httpResponse = element.response as? HTTPURLResponse,
+                        httpResponse.statusCode == 200 else {
+                            throw URLError(.badServerResponse)
+                        }
+                    return element.data
+                    }
+                .decode(type: Datas.self, decoder: JSONDecoder())
+                .sink(receiveCompletion: { print ("Received completion: \($0).") },
+                      receiveValue: { user in print ("Received user: \(user).")})
+    }
+   
 }
