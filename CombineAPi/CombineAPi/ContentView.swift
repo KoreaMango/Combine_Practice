@@ -12,7 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         Button {
-            viewModel.getData(cityName: "Busan")
+            viewModel.getDatas(cityName: "Busan")
         } label: {
             Text("Click ME")
         }
